@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -15,7 +15,39 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@app/*": [
+        "app/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@environment": [
+        "environments/environment.ts"
+      ],
+      "@core/*": [
+        "app/modules/core/*"
+      ],
+      "@home/*": [
+        "app/modules/home/*"
+      ],
+      "@calendar/*": [
+        "app/modules/calendar/*"
+      ],
+      "@sign-up/*": [
+        "app/modules/sign-up/*"
+      ],
+      "@sign-in/*": [
+        "app/modules/sign-in/*"
+      ],
+      "@repositories/*": [
+        "app/modules/repositories/*"
+      ],
+      "@shared/*": [
+        "app/modules/shared/*"
+      ],
+    },
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false

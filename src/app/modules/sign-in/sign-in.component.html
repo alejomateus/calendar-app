@@ -1,0 +1,49 @@
+<div class="row generalForm">
+  <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 ">
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12 ">
+    <form [formGroup]="formSignIn" (ngSubmit)="signIn()">
+      <div>
+        <img src="assets/images/logo.png" class="logo">
+      </div>
+      <h2 class="title">Inicia sesion</h2>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput placeholder="Ex. pat@example.com" formControlName="email">
+      </mat-form-field>
+      <ng-container *ngFor="let validation of signInValidationMessages.email">
+        <mat-error class="errorMessages" *ngIf="formSignIn.get('email').hasError(validation.type)
+                && (formSignIn.get('email').dirty
+                || formSignIn.get('email').touched)">
+          {{ validation.message }}
+        </mat-error>
+      </ng-container>
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'"
+          formControlName="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide" type="button">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <ng-container *ngFor="let validation of signInValidationMessages.password">
+        {{formSignIn.get('password').errorMessages}}
+        <mat-error class="errorMessages" *ngIf="formSignIn.get('password').hasError(validation.type)
+                && (formSignIn.get('password').dirty
+                || formSignIn.get('password').touched)">
+          {{ validation.message }}
+        </mat-error>
+      </ng-container>
+      <div class="col-12 text-center">
+        <button mat-raised-button color="primary" type="submit" [disabled]="formSignIn.invalid">Ingresar</button>
+      </div>
+      <div class="col-12 text-center container-link">
+        <span>Aun no tienes cuenta? </span>
+        <a (click)="gotoSignUp()"> Registrese aqui</a>
+      </div>
+    </form>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 ">
+  </div>
+</div>

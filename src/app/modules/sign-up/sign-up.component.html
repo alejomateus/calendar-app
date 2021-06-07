@@ -1,0 +1,84 @@
+<div class="row generalForm">
+  <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 ">
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12 ">
+    <form [formGroup]="formSignUp">
+      <div>
+        <img src="assets/images/logo.png" class="logo">
+      </div>
+      <h2 class="title">Registrate ahora</h2>
+      <mat-form-field appearance="outline">
+        <mat-label>Nombres</mat-label>
+        <input type="text" matInput placeholder="Ex. pat@example.com" formControlName="names">
+      </mat-form-field>
+      <ng-container *ngFor="let validation of signUpValidationMessages.names">
+        <mat-error class="errorMessages" *ngIf="formSignUp.get('names').hasError(validation.type)
+                && (formSignUp.get('names').dirty
+                || formSignUp.get('names').touched)">
+          {{ validation.message }}
+        </mat-error>
+      </ng-container>
+      <mat-form-field appearance="outline">
+        <mat-label>Apellidos</mat-label>
+        <input type="text" matInput placeholder="Ex. pat@example.com" formControlName="last_names">
+      </mat-form-field>
+      <ng-container *ngFor="let validation of signUpValidationMessages.last_names">
+        <mat-error class="errorMessages" *ngIf="formSignUp.get('last_names').hasError(validation.type)
+                && (formSignUp.get('last_names').dirty
+                || formSignUp.get('last_names').touched)">
+          {{ validation.message }}
+        </mat-error>
+      </ng-container>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput placeholder="Ex. pat@example.com" formControlName="email">
+      </mat-form-field>
+      <ng-container *ngFor="let validation of signUpValidationMessages.email">
+        <mat-error class="errorMessages" *ngIf="formSignUp.get('email').hasError(validation.type)
+                && (formSignUp.get('email').dirty
+                || formSignUp.get('email').touched)">
+          {{ validation.message }}
+        </mat-error>
+      </ng-container>
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'" formControlName="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide" type="button">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <ng-container *ngFor="let validation of signUpValidationMessages.password">
+        <mat-error class="errorMessages" *ngIf="formSignUp.get('password').hasError(validation.type)
+                && (formSignUp.get('password').dirty
+                || formSignUp.get('password').touched)">
+          {{ validation.message }}
+        </mat-error>
+      </ng-container>
+      <mat-form-field appearance="outline">
+        <mat-label>Nueva Contraseña</mat-label>
+        <input matInput placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'" formControlName="new_password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide" type="button">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      </mat-form-field>
+      <ng-container *ngFor="let validation of signUpValidationMessages.new_password">
+        <mat-error class="errorMessages" *ngIf="formSignUp.get('new_password').hasError(validation.type)
+                && (formSignUp.get('new_password').dirty
+                || formSignUp.get('new_password').touched)">
+          {{ validation.message }}
+        </mat-error>
+      </ng-container>
+      <div class="col-12 text-center">
+        <button mat-raised-button color="primary" type="submit" [disabled]="formSignUp.invalid">Registrate </button>
+      </div>
+      <div class="col-12 text-center container-link">
+        <span>Ya tienes cuenta? </span>
+        <a (click)="gotoSignIn()"> Ingresa ahora</a>
+      </div>
+    </form>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 ">
+  </div>
+</div>

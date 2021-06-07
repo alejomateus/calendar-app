@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  urlApi: "http://localhost:4004",
+  hellobuildkey: "h3ll0bu1ldK3y2021*?",
+  endPoints: {
+    googleEvents: "/google-events",
+    login: "/login",
+    signUp: "/sign-up"
+  },
+  helloBuildKey: "h3ll0bu1ldK3y",
+  helloBuildRequestKey: "U2FsdGVkX18Eiyj5Eef041itwE+uX1ugPvsLCbWTnpsZWrS6Wyup0+m3wrixUH4u"
 };
 
 /*

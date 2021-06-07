@@ -1,0 +1,15 @@
+
+<dx-scheduler
+  [dataSource]="dataSource"
+  [editing]="false"
+  startDateExpr="start.dateTime"
+  endDateExpr="end.dateTime"
+  textExpr="summary"
+  [startDayHour]="7"
+  timeZone="America/Bogota"
+  [showAllDayPanel]="false"
+  [views]='["day", "week", "month"]'
+  currentView="week"
+  [currentDate]="currentDate"
+  [height]="500">
+</dx-scheduler>
