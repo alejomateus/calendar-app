@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IAuthenticatedUser, IResponse, ISignIn } from '@app/models/authentication';
+import { IAuthenticatedUser, IResponse, ISignIn, ISignUp } from '@app/models/authentication';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { CustomHttpParams } from '@core/interceptors/custom-http-params';
 import { environment } from '@environment';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient,
     private jwtHelperService: JwtHelperService,
+    private storageService: StorageService,
   ) { }
   public async login(data: ISignIn): Promise<IAuthenticatedUser> {
     try {
@@ -20,7 +22,7 @@ export class AuthenticationService {
         (`${environment.urlApi}${environment.endPoints.login}`, data, {
           params: new CustomHttpParams("api-without-token"),
         }).toPromise()).data;
-      localStorage.setItem("user", JSON.stringify(this.authenticatedUser));
+      await this.storageService.setItem("user", JSON.stringify(this.authenticatedUser));
     } catch (error) {
       this.authenticatedUser = null;
     } finally {
@@ -28,18 +30,25 @@ export class AuthenticationService {
     }
   }
 
-  public getCurrentAuthenticatedUser(): IAuthenticatedUser {
-    this.authenticatedUser
+  public signUp(data: ISignUp): Promise<IResponse> {
+    return this.http.post<IResponse>
+      (`${environment.urlApi}${environment.endPoints.signUp}`, data, {
+        params: new CustomHttpParams("api-without-token"),
+      }).toPromise();
+  }
+
+  async getCurrentAuthenticatedUser(): Promise<IAuthenticatedUser> {
+    this.authenticatedUser = this.authenticatedUser
       ? this.authenticatedUser
       : JSON.parse(
-        localStorage.getItem("user"),
+        await this.storageService.getItem("user"),
       );
     return this.authenticatedUser;
   }
 
-  public signOut(): void {
+  async signOut(): Promise<any> {
     this.authenticatedUser = null;
-    localStorage.clear();
+    await this.storageService.removeAll();
   }
 
   public tokenExpired(token: string): boolean {

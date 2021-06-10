@@ -1,1 +1,78 @@
-<p>repositories works!</p>
+<div class="container-profile" *ngIf="profile">
+  <div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-3 col-12 d-sm-none d-md-block d-none d-sm-block">
+      <img [src]="profile?.avatar_url" class="profile">
+    </div>
+    <div class="col-lg-10 col-md-10  col-sm-9 col-12 d-sm-none d-md-block d-none d-sm-block">
+      <div class="container-info  text-center">
+        <strong> {{authenticatedUser?.user.names}} {{authenticatedUser?.user.last_names}} </strong>
+      </div>
+      <div class="container-info">
+        <strong>Perfil de Github: </strong>
+        <span> {{profile?.url}}</span>
+      </div>
+      <div class="container-info">
+        <strong>Nombre de usuario: </strong>
+        <span> {{profile?.login}}</span>
+      </div>
+      <div class="container-info">
+        <strong>Email: </strong>
+        <span> {{authenticatedUser?.user.email}} </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 d-block d-sm-none">
+    </div>
+    <div class="col-6 d-block d-sm-none">
+      <img [src]="profile?.avatar_url" class="profile">
+    </div>
+    <div class="col-3 d-block d-sm-none">
+    </div>
+    <div class="col-12 d-block d-sm-none">
+      <div class="container-info text-center">
+        <strong> {{authenticatedUser?.user.names}} {{authenticatedUser?.user.last_names}} </strong>
+      </div>
+      <div class="container-info">
+        <strong>Perfil de Github: </strong>
+        <span> {{profile?.url}}</span>
+      </div>
+      <div class="container-info">
+        <strong>Nombre de usuario: </strong>
+        <span> {{profile?.login}}</span>
+      </div>
+      <div class="container-info">
+        <strong>Email: </strong>
+        <span> {{authenticatedUser?.user.email}} </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-2 col-md-2 col-sm-1 col-12 ">
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-10 col-12 " *ngIf="repositories">
+    <div class="text-center">
+      <h3>Lista de repositorios</h3>
+    </div>
+    <div class="repository" *ngFor="let respository of repositories">
+      <div>
+        <strong> {{respository.name}} </strong>
+      </div>
+      <br>
+      <div>
+        <strong>Url: </strong> <a [href]="respository.html_url"> {{respository.html_url}}</a>
+      </div>
+      <div>
+        <strong>Descripción: </strong> <span> {{respository.description}}</span>
+      </div>
+      <div>
+        <strong>Creado: </strong> <span> {{respository.created_at | date:'M/d/yy, h:mm a'}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-2 col-md-2 col-sm-1 col-12 ">
+  </div>
+
+</div>

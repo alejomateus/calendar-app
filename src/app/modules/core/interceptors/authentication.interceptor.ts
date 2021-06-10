@@ -32,7 +32,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     let headers = req.headers;
 
     if (req.params instanceof CustomHttpParams && req.params.type) {
-      const autenticatedUser: IAuthenticatedUser = this.authenticationService.getCurrentAuthenticatedUser();
+      const autenticatedUser: IAuthenticatedUser = await this.authenticationService.getCurrentAuthenticatedUser();
       if (autenticatedUser) {
         this.token = autenticatedUser.token;
       }

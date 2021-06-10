@@ -34,7 +34,7 @@ export class ActiveSessionGuard implements CanActivate {
     let value = false;
     let token = "";
     let authenticatedUser: IAuthenticatedUser;
-    authenticatedUser = this.authenticationService.getCurrentAuthenticatedUser();
+    authenticatedUser = await this.authenticationService.getCurrentAuthenticatedUser();
     if (authenticatedUser) {
       token = authenticatedUser.token;
     }

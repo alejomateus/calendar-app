@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '@shared/services/authentication.service';
+import { LoaderService } from '@shared/services/loader.service';
 import { ISignUpValidationMessages } from './models/sign-in';
 
 @Component({
@@ -15,10 +17,18 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private authenticationService: AuthenticationService,
+    private loaderService: LoaderService,
   ) { }
 
   ngOnInit(): void {
     this.initForm();
+  }
+
+  validateEqualValues(control: FormGroup): ValidationErrors | null {
+    const password = control.get('password');
+    const new_password = control.get('new_password');
+    return password.value === new_password.value ? null : { 'noEquals': true };
   }
 
   initForm(): void {
@@ -43,6 +53,8 @@ export class SignUpComponent implements OnInit {
       last_names: new FormControl("", [
         Validators.required,
       ])
+    }, {
+      validators: this.validateEqualValues
     });
     this.signUpValidationMessages = {
       email: [
@@ -62,6 +74,7 @@ export class SignUpComponent implements OnInit {
       new_password: [
         { type: "required", message: "La nueva contraseña es requerida" },
         { type: "pattern", message: "La nueva contraseña tiene un formato incorrecto" },
+        { type: "noEquals", message: "Las contraseñas no son iguales" }
       ],
       names: [
         {
@@ -79,6 +92,16 @@ export class SignUpComponent implements OnInit {
     };
   }
 
+  async signUp(): Promise<any> {
+    try {
+      this.loaderService.setSpinnerText("Validando tus datos...");
+      await this.authenticationService.signUp(this.formSignUp.value);
+      this.router.navigate(["/sign-in"]);
+    } catch (error) {
+    } finally {
+      this.loaderService.hide();
+    }
+  }
   gotoSignIn(): void {
     this.router.navigate(["/sign-in"]);
   }

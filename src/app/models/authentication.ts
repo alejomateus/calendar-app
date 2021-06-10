@@ -6,6 +6,13 @@ export interface ISignIn {
   password: string;
 }
 
+export interface ISignUp {
+  email: string;
+  password: string;
+  names: string;
+  last_names: string;
+}
+
 export interface IAuthenticatedUser {
   ok: boolean;
   user: IAuthenticatedUserData;

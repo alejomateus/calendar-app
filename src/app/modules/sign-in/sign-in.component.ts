@@ -28,13 +28,13 @@ export class SignInComponent implements OnInit {
 
   initForm(): void {
     this.formSignIn = new FormGroup({
-      email: new FormControl("", [
+      email: new FormControl("alejo.mateus.ud@gmail.com", [
         Validators.required,
         Validators.pattern(
           "^([a-zA-Z0-9-+_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$",
         ),
       ]),
-      password: new FormControl("", [
+      password: new FormControl("123456", [
         Validators.required,
         // Validators.pattern("^(?=.*[0-9])(?=.*[!@#$%^.&*])[a-zA-Z0-9!@#$%^&*]{6,16}$"),
       ])
@@ -61,11 +61,9 @@ export class SignInComponent implements OnInit {
       this.loaderService.setSpinnerText("Validando tus credenciales");
       let userData: IAuthenticatedUser = await this.authenticationService.login(this.formSignIn.value);
       if (userData?.user) {
-        this.router.navigate(["/home"]);
+        this.router.navigate(["/repositories"]);
       }
     } catch (error) {
-
-    } finally {
       this.loaderService.hide();
     }
   }

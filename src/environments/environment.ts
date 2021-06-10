@@ -9,7 +9,11 @@ export const environment = {
   endPoints: {
     googleEvents: "/google-events",
     login: "/login",
-    signUp: "/sign-up"
+    signUp: "/sign-up",
+    github: {
+      repositories: "/github/repositories",
+      profile: "/github/profile"
+    }
   },
   helloBuildKey: "h3ll0bu1ldK3y",
   helloBuildRequestKey: "U2FsdGVkX18Eiyj5Eef041itwE+uX1ugPvsLCbWTnpsZWrS6Wyup0+m3wrixUH4u"

@@ -2,7 +2,7 @@
   <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 ">
   </div>
   <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12 ">
-    <form [formGroup]="formSignUp">
+    <form [formGroup]="formSignUp" (ngSubmit)="signUp()">
       <div>
         <img src="assets/images/logo.png" class="logo">
       </div>
@@ -42,7 +42,8 @@
       </ng-container>
       <mat-form-field appearance="outline">
         <mat-label>Contraseña</mat-label>
-        <input matInput placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'" formControlName="password">
+        <input matInput placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'"
+          formControlName="password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide" type="button">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -57,11 +58,12 @@
       </ng-container>
       <mat-form-field appearance="outline">
         <mat-label>Nueva Contraseña</mat-label>
-        <input matInput placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'" formControlName="new_password">
+        <input matInput placeholder="Ingrese su contraseña" [type]="hide ? 'password' : 'text'"
+          formControlName="new_password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide" type="button">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
+          [attr.aria-pressed]="hide" type="button">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
       </mat-form-field>
       <ng-container *ngFor="let validation of signUpValidationMessages.new_password">
         <mat-error class="errorMessages" *ngIf="formSignUp.get('new_password').hasError(validation.type)
@@ -70,6 +72,9 @@
           {{ validation.message }}
         </mat-error>
       </ng-container>
+      <mat-error class="mat-error" *ngIf=" formSignUp.hasError('noEquals') && (formSignUp.get('new_password').dirty
+      || formSignUp.get('new_password').touched)  && (formSignUp.get('password').dirty
+      || formSignUp.get('password').touched)">Las contraseñas no coinciden</mat-error>
       <div class="col-12 text-center">
         <button mat-raised-button color="primary" type="submit" [disabled]="formSignUp.invalid">Registrate </button>
       </div>
