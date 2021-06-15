@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@shared/services/authentication.service';
 import { LoaderService } from '@shared/services/loader.service';
+import { DialogService } from '../shared/services/dialog.service';
 import { ISignUpValidationMessages } from './models/sign-in';
 
 @Component({
@@ -14,11 +15,14 @@ export class SignUpComponent implements OnInit {
   formSignUp: FormGroup;
   signUpValidationMessages: ISignUpValidationMessages;
   hide: boolean = true;
+  @ViewChild("signUpError", { static: true }) tsignUpError: TemplateRef<any>;
+  @ViewChild("signUpDone", { static: true }) tsignUpDone: TemplateRef<any>;
 
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
     private loaderService: LoaderService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -96,14 +100,22 @@ export class SignUpComponent implements OnInit {
     try {
       this.loaderService.setSpinnerText("Validando tus datos...");
       await this.authenticationService.signUp(this.formSignUp.value);
-      this.router.navigate(["/sign-in"]);
+      this.dialogService.openDialog(this.tsignUpDone);
+      this.formSignUp.reset();
     } catch (error) {
+      this.dialogService.openDialog(this.tsignUpError);
     } finally {
       this.loaderService.hide();
     }
   }
   gotoSignIn(): void {
     this.router.navigate(["/sign-in"]);
+  }
+
+  async closeDialog(event: boolean): Promise<any> {
+    if (event) {
+      this.gotoSignIn();
+    }
   }
 
 }

@@ -9,8 +9,8 @@ import { LoaderService } from '@shared/services/loader.service';
 export class AppComponent {
   constructor(private loaderService: LoaderService) {
   }
-
   getLoaderText(): string {
     return this.loaderService.getSpinnerText();
   }
+
 }

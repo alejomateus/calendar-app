@@ -1,0 +1,9 @@
+<div class="mat-dialog-content" mat-dialog-content>
+  <mat-icon class="material-icons icon-alert" [ngClass]="icon">{{icon}}</mat-icon>
+  <h3 mat-dialog-title class="title">{{title}}</h3>
+  <p>{{description}} </p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close *ngIf="label_button_1" (click)="emitEvent(false)">{{label_button_1}}</button>
+  <button mat-button mat-dialog-close *ngIf="label_button_2" (click)="emitEvent(true)">{{label_button_2}}</button>
+</div>

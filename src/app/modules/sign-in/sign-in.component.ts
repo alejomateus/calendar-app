@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IAuthenticatedUser } from '@app/models/authentication';
-import { AuthenticationService } from '../shared/services/authentication.service';
-import { LoaderService } from '../shared/services/loader.service';
+import { AuthenticationService } from '@shared/services/authentication.service';
+import { LoaderService } from '@shared/services/loader.service';
+import { DialogService } from '../shared/services/dialog.service';
 import { ISignInValidationMessages } from './models/sign-in';
 
 @Component({
@@ -15,11 +16,13 @@ export class SignInComponent implements OnInit {
   formSignIn: FormGroup;
   signInValidationMessages: ISignInValidationMessages;
   hide: boolean = true;
+  @ViewChild("signInError", { static: true }) tsignInError: TemplateRef<any>;
 
   constructor(
     private authenticationService: AuthenticationService,
     private loaderService: LoaderService,
     private router: Router,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -62,13 +65,22 @@ export class SignInComponent implements OnInit {
       let userData: IAuthenticatedUser = await this.authenticationService.login(this.formSignIn.value);
       if (userData?.user) {
         this.router.navigate(["/repositories"]);
+      } else {
+        this.showDialog();
       }
     } catch (error) {
-      this.loaderService.hide();
+      this.showDialog();
     }
   }
   gotoSignUp(): void {
     this.router.navigate(["/sign-up"]);
+  }
+  showDialog(): void {
+    this.loaderService.hide();
+    this.dialogService.openDialog(this.tsignInError);
+  }
+  async closeDialog(event: boolean): Promise<any> {
+    this.formSignIn.reset();
   }
 
 }

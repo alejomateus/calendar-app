@@ -47,3 +47,8 @@
   <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 ">
   </div>
 </div>
+<ng-template #signInError>
+  <app-alert [title]="'Error al Iniciar sesión'"
+    [description]="'En estos momentos no puedes iniciar sesion en nuestro sistema '"
+    [label_button_2]="'Intenta de nuevo'"></app-alert>
+</ng-template>

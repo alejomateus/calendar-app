@@ -25,22 +25,24 @@ export class RepositoriesComponent implements OnInit {
       this.loaderService.setSpinnerText("Cargando informacion de github...");
     }, 100);
     await this.getProfile();
-    this.authenticatedUser = await this.authenticationService.getCurrentAuthenticatedUser();
-    await this.getRepositories();
-    this.loaderService.hide();
   }
 
   private async getRepositories(): Promise<any> {
     try {
       this.repositories = (await this.repositoriesService.getRepositories()).data;
     } catch (error) {
+      this.loaderService.hide();
     }
   }
 
   private async getProfile(): Promise<any> {
     try {
       this.profile = (await this.repositoriesService.getProfile()).data;
+      this.authenticatedUser = await this.authenticationService.getCurrentAuthenticatedUser();
+      await this.getRepositories();
     } catch (error) {
+    } finally {
+      this.loaderService.hide();
     }
   }
 }

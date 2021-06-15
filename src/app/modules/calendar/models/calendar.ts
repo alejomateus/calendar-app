@@ -13,32 +13,37 @@ export interface IGoogleEvent {
   description: string;
   location: string;
   colorId: string;
-  creator: {
-    email: string;
-  },
-  organizer: {
-    email: string;
-    displayName: string;
-    self: boolean;
-  },
-  start: {
-    dateTime: string;
-    timeZone: string;
-  },
-  end: {
-    dateTime: string;
-    timeZone: string;
-  },
+  creator: ICreator;
+  organizer: IOrganizer;
+  start: IDateTimeZone;
+  end: IDateTimeZone;
   iCalUID: string;
   sequence: number;
-  attendees: [
-    {
-      email: string;
-      responseStatus: string;
-    }
-  ],
-  reminders: {
-    useDefault: boolean;
-  },
+  attendees: IAttendees[];
+  reminders: IReminder;
   eventType: string;
+}
+
+export interface IAttendees {
+  email: string;
+  responseStatus: string;
+}
+
+export interface IDateTimeZone {
+  email: string;
+  responseStatus: string;
+}
+
+export interface IOrganizer {
+  email: string;
+  displayName: string;
+  self: boolean;
+}
+
+export interface ICreator {
+  email: string;
+}
+
+export interface IReminder {
+  useDefault: boolean;
 }

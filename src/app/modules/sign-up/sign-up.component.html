@@ -87,3 +87,14 @@
   <div class="col-lg-3 col-md-3 col-sm-2 col-xs-12 ">
   </div>
 </div>
+<ng-template #signUpError>
+  <app-alert [title]="'Error'"
+    [description]="'En estos momentos no puedes registrarse en nuestro sistema '" [label_button_2]="'Intenta de nuevo'">
+  </app-alert>
+</ng-template>
+
+<ng-template #signUpDone>
+  <app-alert (dialogEvent)="closeDialog($event)" [title]="'Proceso exitoso'"
+    [description]="'Te has registrado satisfactoriamente intenta iniciar sesion ahora'" [icon]="'done'"
+    [label_button_2]="'Inicia sesión'"></app-alert>
+</ng-template>

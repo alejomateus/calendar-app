@@ -30,8 +30,6 @@ export class CalendarComponent implements OnInit {
 
   private async getData(): Promise<any> {
     this.googleEvents = this.googleEvents ? this.googleEvents : (await this.calendarService.getEvents()).data;
-    console.log(this.googleEvents);
-
     this.loaderService.hide();
     return this.googleEvents;
   }

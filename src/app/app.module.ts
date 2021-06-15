@@ -22,8 +22,7 @@ export function tokenGetter(): string {
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent
-  ],
+    MenuComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
